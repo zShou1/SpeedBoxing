@@ -38,22 +38,21 @@ public class Singleton<T> : Node where T : Singleton<T>
         if (!instance)
         {
             instance = (T)this;
-            DontDestroyOnLoad(gameObject);
+            /*DontDestroyOnLoad(gameObject);*/
             return true;
         }
-
-        if (Instance == this)
+        else if (instance != (T)this)
         {
-            return true;
+            Destroy(gameObject);
+            return false;
         }
 
-        Destroy(this.gameObject);
-        return false;
+        return true;
     }
     
-    /*protected void DontDestroyOnLoad()
+    protected void DontDestroyOnLoad()
     {
         DontDestroyOnLoad(gameObject);
-    }*/
+    }
 
 }
