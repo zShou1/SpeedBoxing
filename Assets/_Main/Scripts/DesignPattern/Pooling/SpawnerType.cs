@@ -2,5 +2,9 @@ using System;
 [Serializable]
 public enum SpawnerType
 {
-   Ball
+   RedBall,
+   YellowBall,
+   WhiteBall,
+   GreyBall,
+   OrangeBall
 }

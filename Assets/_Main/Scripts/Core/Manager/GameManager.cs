@@ -1,6 +1,9 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public enum GameState
 {
@@ -10,7 +13,25 @@ public enum GameState
 public class GameManager : Singleton<GameManager>
 {
     [Header("Gameplay Settings")]
-    public int score = 0;
+    private int _score = 0;
+
+    public int Score
+    {
+        set
+        {
+            _score = value;
+            if (_score >= scoreTarget)
+            {
+                //todo win
+                CurrentGameState = GameState.Ending;
+            }else if (_score < 0)
+            {
+                //todo lose
+                CurrentGameState = GameState.Ending;
+            }
+        }
+        get => _score;
+    }
     public int scoreTarget = 500;
 
     [Header("Combo Settings")]
@@ -26,6 +47,8 @@ public class GameManager : Singleton<GameManager>
     private Transform spawnPointRight;
     public float levelTime = 30f;
     public float speedBallBase = 30f;
+    [SerializeField] 
+    private float intervalSpawn;
 
     private float _currentBallSpeed = 30f;
     
@@ -33,22 +56,20 @@ public class GameManager : Singleton<GameManager>
     public Action OnGameStarting;
     public Action OnGameEnding;
     private int _currentLevel=1;
+
+
+    private List<SpawnerType> BallSpawnerTypeList = new List<SpawnerType>()
+    {
+        SpawnerType.RedBall,
+        SpawnerType.YellowBall,
+        SpawnerType.WhiteBall,
+        SpawnerType.GreyBall,
+        SpawnerType.OrangeBall
+    };
     public int CurrentLevel
     {
-        get
-        {
-            if (PlayerPrefs.HasKey(Constants.CurrentLevelKey))
-            {
-                _currentLevel = PlayerPrefs.GetInt(Constants.CurrentLevelKey, 1);
-            }
-            return _currentLevel;
-        }
-        set
-        {
-            _currentLevel = Mathf.Clamp(value, 1, 3);
-            PlayerPrefs.SetInt(Constants.CurrentLevelKey, _currentLevel);
-            PlayerPrefs.Save();
-        }
+        get => _currentLevel;
+        set => _currentLevel = Mathf.Clamp(value, 1, _currentLevel);
     }
     private GameState _currentGameState;
     public GameState CurrentGameState
@@ -84,8 +105,26 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         CurrentGameState = GameState.Playing;
+        ResetData();
+        intervalSpawn = levelTime / _currentBallSpeed;
+        StartCoroutine(SpawnBall());
     }
-    
+
+    private void ResetData()
+    {
+        levelTime = 30f;
+        Score = 0;
+        comboActive = false;
+        consecutiveHits = 0;
+        if (CurrentLevel == 1)
+        {
+            _currentBallSpeed = speedBallBase;
+        }
+        else
+        {
+            _currentBallSpeed *= .1f;
+        }
+    }
 
     #region Logic and Events
 
@@ -97,7 +136,7 @@ public class GameManager : Singleton<GameManager>
             amount *= 2;
         }
 
-        score += amount;
+        Score += amount;
 
         // Xử lý combo
         if (amount > 0)
@@ -120,8 +159,7 @@ public class GameManager : Singleton<GameManager>
    
     void EndLevel()
     {
-        // Kiểm tra xem có đủ điểm không
-        if (score >= scoreTarget)
+        if (Score >= scoreTarget)
         {
             Debug.Log("Level Passed!");
         }
@@ -129,13 +167,12 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.Log("Level Failed!");
         }
-        // Reset level hoặc chuyển sang level tiếp theo...
-        ResetLevel();
+        /*ResetLevel();*/
     }
     void ResetLevel()
     {
         //timer = levelTime;
-        score = 0;
+        Score = 0;
         comboActive = false;
         consecutiveHits = 0;
         //UpdateUI();
@@ -145,10 +182,42 @@ public class GameManager : Singleton<GameManager>
 
     #region Spawn Level
 
-    private void SpawnBall()
+    IEnumerator SpawnBall()
     {
-        // Tạo bóng
-        //ObjectPutter.Instance.PutObject(SpawnerType.Ball);
+        while (CurrentGameState== GameState.Playing)
+        {
+            var randomTypeLeft = GetRandomBallType();
+            Transform ballLeft = ObjectPutter.Instance.PutObject(randomTypeLeft);
+            if (ballLeft)
+            {
+                ballLeft.position = spawnPointLeft.position;
+                ballLeft.rotation = spawnPointLeft.rotation;
+                if (ballLeft.TryGetComponent(out Ball ballLeftComponent))
+                {
+                    ballLeftComponent.ActiveForce(_currentBallSpeed);
+                }
+            }
+
+            var randomTypeRight = GetRandomBallType();
+            Transform ballRight = ObjectPutter.Instance.PutObject(randomTypeRight);
+            if (ballRight)
+            {
+                ballRight.position = spawnPointRight.position;
+                ballRight.rotation = spawnPointRight.rotation;
+                if (ballRight.TryGetComponent(out Ball ballRightComponent))
+                {
+                    ballRightComponent.ActiveForce(_currentBallSpeed);
+                }
+            }
+
+            yield return new WaitForSeconds(intervalSpawn);
+        }
+    }
+
+    SpawnerType GetRandomBallType()
+    {
+        var randomIndex = Random.Range(0, BallSpawnerTypeList.Count);
+        return BallSpawnerTypeList[randomIndex];
     }
     #endregion
     

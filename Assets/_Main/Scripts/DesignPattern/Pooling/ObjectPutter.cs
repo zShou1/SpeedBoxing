@@ -11,6 +11,7 @@ public class ObjectPutter : Singleton<ObjectPutter>
     protected override void Awake()
     {
         base.Awake();
+        DontDestroyOnLoad();
         if (table == null)
         {
             table = Resources.Load("SpawnerTable") as SpawnerTable; // load file SpawnerTable đã tạo ở trên
