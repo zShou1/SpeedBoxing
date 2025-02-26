@@ -20,7 +20,7 @@ public class GameManager : Singleton<GameManager>
         set
         {
             _score = value;
-            if (_score >= scoreTarget)
+            /*if (_score >= scoreTarget)
             {
                 //todo win
                 CurrentGameState = GameState.Ending;
@@ -28,7 +28,7 @@ public class GameManager : Singleton<GameManager>
             {
                 //todo lose
                 CurrentGameState = GameState.Ending;
-            }
+            }*/
         }
         get => _score;
     }

@@ -10,7 +10,7 @@ public class Singleton<T> : Node where T : Singleton<T>
         {
             if (!instance)
             {
-                instance = (T)FindObjectOfType(typeof(T), true);
+                instance = (T)FindFirstObjectByType(typeof(T), FindObjectsInactive.Include);
                 if (instance is null)
                 {
                     string name = typeof(T).Name;

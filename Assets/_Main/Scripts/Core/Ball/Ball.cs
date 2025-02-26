@@ -8,7 +8,7 @@ public class Ball : Node
 
     private Rigidbody _rb;
 
-    private float _forceScale = .5f;
+    private float _forceScale = 0.05f;
 
 
     private void Awake()

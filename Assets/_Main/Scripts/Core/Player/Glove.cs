@@ -23,17 +23,20 @@ public class Glove : Node
                     {
                         // Đấm đúng màu
                         GameManager.Instance.AddScore(50);
+                        Debug.Log("dung r day");
                     }
                     else
                     {
                         // Đấm sai màu
                         GameManager.Instance.AddScore(-20);
+                        Debug.Log("sai mau r day");
                     }
                 }
                 else
                 {
                     //Bóng giả
                     GameManager.Instance.AddScore(-20);
+                    Debug.Log("bong gia r day");
                 }
                 ball.Deactivate();
             }
