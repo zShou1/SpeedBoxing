@@ -87,7 +87,7 @@ Material:
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _BASE_COLOR_WEIGHT: 1
+    - _BASE_COLOR_WEIGHT: 0.109
     - _BUMP_MAP_STRENGTH: 0.3
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
@@ -100,7 +100,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EMISSION_WEIGHT: 1
+    - _EMISSION_WEIGHT: 0.772
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5

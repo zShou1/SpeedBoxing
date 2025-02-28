@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: d36e297764541564c93c891dc7e9a6a5, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: a426298f3cb2ba245a44ad6f72c67a86, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -3702,10 +3702,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8516534938574131594, guid: 951cfc9179194de4c90817fc2b0ce347, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 850d09233d9adc148b5f63a740063700, type: 2}
     - target: {fileID: 919132149155446097, guid: 951cfc9179194de4c90817fc2b0ce347, type: 3}
       propertyPath: m_Name
       value: Bong_GangTay
       objectReference: {fileID: 0}
+    - target: {fileID: 2066004160495648297, guid: 951cfc9179194de4c90817fc2b0ce347, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 850d09233d9adc148b5f63a740063700, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
