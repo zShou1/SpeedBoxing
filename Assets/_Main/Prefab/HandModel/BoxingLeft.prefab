@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 4677581339244086397}
   - component: {fileID: 14569071253269953}
   - component: {fileID: 3234579297469997430}
-  m_Layer: 0
+  - component: {fileID: 4656027911373673169}
+  m_Layer: 10
   m_Name: BoxingLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,3 +137,16 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.1072044
   m_Center: {x: -0.010995726, y: 0.31893867, z: 0.022583801}
+--- !u!114 &4656027911373673169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257326720128350175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38333dc632a3db74ca3560a9fb579024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gloveColor: 0

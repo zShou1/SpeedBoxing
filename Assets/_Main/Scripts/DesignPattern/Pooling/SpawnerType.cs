@@ -6,5 +6,11 @@ public enum SpawnerType
    YellowBall,
    WhiteBall,
    GreyBall,
-   OrangeBall
+   OrangeBall,
+   Sound,
+   VFXRealBallExplosion,
+   VFXFakeBallExplosion,
+   VFXSpawnBall,
+   VFXCombo,
+   VFXWin
 }

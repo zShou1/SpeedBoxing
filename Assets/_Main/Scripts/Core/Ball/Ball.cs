@@ -8,12 +8,22 @@ public class Ball : Node
 
     private Rigidbody _rb;
 
-    private float _forceScale = 0.05f;
+    private float _forceScale = 0.1f;
+
+    
+    private Transform _cameraTransform;
 
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        if (Camera.main != null) _cameraTransform = Camera.main.transform;
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        if (Camera.main != null) _cameraTransform = Camera.main.transform;
     }
 
     public void Init(float speed)
@@ -23,14 +33,40 @@ public class Ball : Node
 
     public void ActiveForce(float speed)
     {
-        _rb.linearVelocity= transform.forward * (speed * _forceScale);
+        _rb.linearVelocity = transform.forward * (speed * _forceScale);
+    }
+
+    public Quaternion GetLookAtPlayerRotation()
+    {
+        if (_cameraTransform)
+        {
+            return Quaternion.LookRotation(transform.position + _cameraTransform.rotation * Vector3.forward,
+                Vector3.up);
+        }
+        return Quaternion.identity;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("CheckArea"))
         {
-            GameManager.Instance.AddScore(-20);
+            if (ballColor is BallColor.Red or BallColor.Yellow)
+            {
+                SoundManager.Instance.PlaySound(Sound.FakeBallExplosion, transform.position);
+                GameManager.Instance.AddScore(-20);
+            }
+
+            Deactivate();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("SpawnSphere"))
+        {
+            Transform spawnVfx = ObjectPutter.Instance.PutObject(SpawnerType.VFXSpawnBall);
+            spawnVfx.position = transform.position;
+            spawnVfx.rotation = GetLookAtPlayerRotation();
         }
     }
 }

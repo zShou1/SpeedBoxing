@@ -83,11 +83,12 @@ public class GameManager : Singleton<GameManager>
                 case GameState.Playing:
                     OnGameStarting?.Invoke();
                     /*BGSoundManager.Instance.PlayBackgroundSound();*/
-                    Time.timeScale = 1;
+                    /*Time.timeScale = 1;*/
                     break;
                 case GameState.Ending:
                     OnGameEnding?.Invoke();
-                    Time.timeScale = 0;
+                    /*Time.timeScale = 0;*/
+                    StopSpawnBall();
                     /*Sequence(Delay(1.0).OnComplete(() =>
                     {
                         BGSoundManager.Instance.StopBackgroundSound();
@@ -96,6 +97,8 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
+    
+    private Coroutine _spawnBallCoroutine;
     protected override void Awake()
     {
         base.Awake();
@@ -106,8 +109,8 @@ public class GameManager : Singleton<GameManager>
     {
         CurrentGameState = GameState.Playing;
         ResetData();
-        intervalSpawn = levelTime / _currentBallSpeed;
-        StartCoroutine(SpawnBall());
+        /*intervalSpawn = levelTime / _currentBallSpeed;*/
+        StartCoroutine(ReadyCountdown());
     }
 
     private void ResetData()
@@ -128,6 +131,39 @@ public class GameManager : Singleton<GameManager>
 
     #region Logic and Events
 
+    public void AddScore(int amount, Transform ballTransform)
+    {
+        // Nếu comboActive và amount > 0 (đấm đúng) => nhân đôi
+        if (comboActive && amount > 0)
+        {
+            amount *= 2;
+            SoundManager.Instance.PlaySound(Sound.RealBallExplosion, ballTransform.position);
+            Transform vfxCombo = ObjectPutter.Instance.PutObject(SpawnerType.VFXCombo);
+            vfxCombo.position = ballTransform.position;
+            vfxCombo.rotation = ballTransform.rotation;
+        }
+
+        Score += amount;
+
+        // Xử lý combo
+        if (amount > 0)
+        {
+            consecutiveHits++;
+            if (consecutiveHits >= comboRequirement)
+            {
+                comboActive = true;
+            }
+        }
+        else
+        {
+            // Đấm sai => reset combo
+            consecutiveHits = 0;
+            comboActive = false;
+        }
+
+        //UpdateUI();
+    }
+    
     public void AddScore(int amount)
     {
         // Nếu comboActive và amount > 0 (đấm đúng) => nhân đôi
@@ -182,6 +218,45 @@ public class GameManager : Singleton<GameManager>
 
     #region Spawn Level
 
+    IEnumerator ReadyCountdown()
+    {
+        SoundManager.Instance.PlaySound2D(Sound.Ready);
+        yield return new WaitForSeconds(1.0f);
+        SoundManager.Instance.PlaySound2D(Sound.Countdown);
+        yield return new WaitForSeconds(1.0f);
+        SoundManager.Instance.PlaySound2D(Sound.Countdown);
+        yield return new WaitForSeconds(1.0f);
+        SoundManager.Instance.PlaySound2D(Sound.Countdown);
+        yield return new WaitForSeconds(1.0f);
+        SoundManager.Instance.PlaySound2D(Sound.Fight);
+        if(SoundManager.Instance.IsSoundOn)
+        {
+            BGSoundManager.Instance.PlayBackgroundSound();
+        }
+        else
+        {
+            BGSoundManager.Instance.StopBackgroundSound();
+        }
+        StartSpawnBall();
+    }
+    private void StartSpawnBall()
+    {
+        if (_spawnBallCoroutine != null)
+        {
+            StopCoroutine(_spawnBallCoroutine);
+        }
+        _spawnBallCoroutine = StartCoroutine(SpawnBall());
+    }
+    
+    public void StopSpawnBall()
+    {
+        if (_spawnBallCoroutine != null)
+        {
+            StopCoroutine(_spawnBallCoroutine);
+            _spawnBallCoroutine = null;
+        }
+    }
+    
     IEnumerator SpawnBall()
     {
         while (CurrentGameState== GameState.Playing)
