@@ -20,6 +20,7 @@ public class GameManager : Singleton<GameManager>
         set
         {
             _score = value;
+            OnScoreChanged?.Invoke(_score);
             /*if (_score >= scoreTarget)
             {
                 //todo win
@@ -45,7 +46,7 @@ public class GameManager : Singleton<GameManager>
     private Transform spawnPointLeft;
     [SerializeField]
     private Transform spawnPointRight;
-    public float levelTime = 30f;
+    public int totalTime = 30;
     public float speedBallBase = 30f;
     [SerializeField] 
     private float intervalSpawn;
@@ -55,6 +56,8 @@ public class GameManager : Singleton<GameManager>
     
     public Action OnGameStarting;
     public Action OnGameEnding;
+    public Action<int> OnTimeChanged;
+    public Action<int> OnScoreChanged;
     private int _currentLevel=1;
 
 
@@ -82,6 +85,8 @@ public class GameManager : Singleton<GameManager>
             {
                 case GameState.Playing:
                     OnGameStarting?.Invoke();
+                    ResetData();
+                    StartCoroutine(ReadyCountdown());
                     /*BGSoundManager.Instance.PlayBackgroundSound();*/
                     /*Time.timeScale = 1;*/
                     break;
@@ -98,6 +103,18 @@ public class GameManager : Singleton<GameManager>
         }
     }
     
+    private int _currentTime;
+
+    public int CurrentTime
+    {
+        private set
+        {
+            _currentTime = value;
+            OnTimeChanged?.Invoke(_currentTime);
+        }
+        get => _currentTime;
+    }
+    
     private Coroutine _spawnBallCoroutine;
     protected override void Awake()
     {
@@ -108,14 +125,28 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         CurrentGameState = GameState.Playing;
-        ResetData();
+        
         /*intervalSpawn = levelTime / _currentBallSpeed;*/
-        StartCoroutine(ReadyCountdown());
+        
+    }
+
+    private void OnDestroy()
+    {
+        UnregisterEvents();
+    }
+    
+    private void UnregisterEvents()
+    {
+        OnGameStarting = null;
+        OnGameEnding = null;
+        OnTimeChanged = null;
+        OnScoreChanged = null;
     }
 
     private void ResetData()
     {
-        levelTime = 30f;
+        totalTime = 30;
+        CurrentTime = totalTime;
         Score = 0;
         comboActive = false;
         consecutiveHits = 0;
@@ -192,6 +223,33 @@ public class GameManager : Singleton<GameManager>
 
         //UpdateUI();
     }
+    
+    /*private void OnGameOverTime()
+    {
+        SoundManager.Instance.PlaySound(Sound.Lose, transform.position);
+        Time.timeScale = 0;
+        UIManager.Instance.Show(UIManager.Panel.GameOverTimePanel);
+        /*Debug.Log("lose me m roi");#1#
+    }*/
+    private IEnumerator TimeCountDown()
+    {
+        WaitForSecondsRealtime wait = new WaitForSecondsRealtime(1f);
+        while (CurrentTime > 0)
+        {
+            yield return wait;
+            if (Mathf.Approximately(Time.timeScale, 1f))
+            {
+                CurrentTime--;
+            }
+            if (CurrentTime <= 0 && CurrentGameState == GameState.Playing)
+            {
+                CurrentGameState = GameState.Ending;
+                /*Sequence(Delay(0.5).OnComplete(OnGameOverTime));*/
+            }
+        }
+
+        
+    }
    
     void EndLevel()
     {
@@ -237,6 +295,7 @@ public class GameManager : Singleton<GameManager>
         {
             BGSoundManager.Instance.StopBackgroundSound();
         }
+        StartCoroutine(TimeCountDown());
         StartSpawnBall();
     }
     private void StartSpawnBall()
