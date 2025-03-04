@@ -48,8 +48,13 @@ public class GameManager : Singleton<GameManager>
     private Transform spawnPointRight;
     public int totalTime = 30;
     public float speedBallBase = 30f;
-    [SerializeField] 
-    private float intervalSpawn;
+    /*[SerializeField] 
+    private float intervalSpawn;*/
+    [SerializeField] private float minSpawnDelay = 0.5f;
+    [SerializeField] private float maxSpawnDelay = 1.5f;
+    
+    private float _baseMinSpawnDelay;
+    private float _baseMaxSpawnDelay;
 
     private float _currentBallSpeed = 30f;
     
@@ -115,19 +120,24 @@ public class GameManager : Singleton<GameManager>
         get => _currentTime;
     }
     
-    private Coroutine _spawnBallCoroutine;
+    /*private Coroutine _spawnBallCoroutine;*/
+    
+    private Coroutine _leftSpawnCoroutine;
+    private Coroutine _rightSpawnCoroutine;
     protected override void Awake()
     {
         base.Awake();
         DontDestroyOnLoad();
+        _baseMinSpawnDelay = minSpawnDelay;
+        _baseMaxSpawnDelay = maxSpawnDelay;
     }
 
     private void Start()
     {
         CurrentGameState = GameState.Playing;
-        
+        _currentLevel = 11;
         /*intervalSpawn = levelTime / _currentBallSpeed;*/
-        
+
     }
 
     private void OnDestroy()
@@ -153,10 +163,18 @@ public class GameManager : Singleton<GameManager>
         if (CurrentLevel == 1)
         {
             _currentBallSpeed = speedBallBase;
+            minSpawnDelay = _baseMinSpawnDelay;
+            maxSpawnDelay = _baseMaxSpawnDelay;
         }
         else
         {
-            _currentBallSpeed *= .1f;
+            //cấp số nhân
+            _currentBallSpeed = speedBallBase * Mathf.Pow(10f, CurrentLevel - 1);
+            minSpawnDelay = _baseMinSpawnDelay * Mathf.Pow(0.05f, CurrentLevel - 1);
+            maxSpawnDelay = _baseMaxSpawnDelay * Mathf.Pow(0.05f, CurrentLevel - 1);
+            //tuyến tính
+            /*_currentBallSpeed = speedBallBase * (1 + 0.5f * (CurrentLevel - 1));*/
+            
         }
     }
 
@@ -298,25 +316,68 @@ public class GameManager : Singleton<GameManager>
         StartCoroutine(TimeCountDown());
         StartSpawnBall();
     }
-    private void StartSpawnBall()
+    /*private void StartSpawnBall()
     {
         if (_spawnBallCoroutine != null)
         {
             StopCoroutine(_spawnBallCoroutine);
         }
         _spawnBallCoroutine = StartCoroutine(SpawnBall());
+    }*/
+    
+    private void StartSpawnBall()
+    {
+        // Khởi chạy 2 coroutine độc lập cho 2 spawn point
+        _leftSpawnCoroutine = StartCoroutine(SpawnBallAt(spawnPointLeft));
+        _rightSpawnCoroutine = StartCoroutine(SpawnBallAt(spawnPointRight));
     }
     
-    public void StopSpawnBall()
+    /*public void StopSpawnBall()
     {
         if (_spawnBallCoroutine != null)
         {
             StopCoroutine(_spawnBallCoroutine);
             _spawnBallCoroutine = null;
         }
+    }*/
+    
+    public void StopSpawnBall()
+    {
+        if (_leftSpawnCoroutine != null)
+        {
+            StopCoroutine(_leftSpawnCoroutine);
+            _leftSpawnCoroutine = null;
+        }
+        if (_rightSpawnCoroutine != null)
+        {
+            StopCoroutine(_rightSpawnCoroutine);
+            _rightSpawnCoroutine = null;
+        }
     }
     
-    IEnumerator SpawnBall()
+    IEnumerator SpawnBallAt(Transform spawnPoint)
+    {
+        while (CurrentGameState == GameState.Playing)
+        {
+            // Sinh bóng tại spawnPoint
+            var randomType = GetRandomBallType();
+            Transform ball = ObjectPutter.Instance.PutObject(randomType);
+            if (ball)
+            {
+                ball.position = spawnPoint.position;
+                ball.rotation = spawnPoint.rotation;
+                if (ball.TryGetComponent(out Ball ballComponent))
+                {
+                    ballComponent.ActiveForce(_currentBallSpeed);
+                }
+            }
+            // Đợi một khoảng thời gian ngẫu nhiên trước khi spawn bóng tiếp theo
+            float delay = Random.Range(minSpawnDelay, maxSpawnDelay);
+            yield return new WaitForSeconds(delay);
+        }
+    }
+    
+    /*IEnumerator SpawnBall()
     {
         while (CurrentGameState== GameState.Playing)
         {
@@ -346,7 +407,7 @@ public class GameManager : Singleton<GameManager>
 
             yield return new WaitForSeconds(intervalSpawn);
         }
-    }
+    }*/
 
     SpawnerType GetRandomBallType()
     {

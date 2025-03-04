@@ -8,7 +8,7 @@ public class Ball : Node
 
     private Rigidbody _rb;
 
-    private float _forceScale = 0.1f;
+    private float _forceScale = 0.3f;
 
     
     private Transform _cameraTransform;
