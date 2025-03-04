@@ -5,6 +5,7 @@ public class LosePanel : UIPanel
     public void OnRetryButtonClicked()
     {
         SoundManager.Instance.PlaySound2D(Sound.Click);
+        GameManager.Instance.CurrentLevel = 1;
         DataManager.Instance.TryDecreaseEnergyAndLoadScene(DataManager.Instance.GetCurrentSceneName());
     }
     

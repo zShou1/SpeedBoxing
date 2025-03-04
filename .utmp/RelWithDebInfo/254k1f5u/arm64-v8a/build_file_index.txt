@@ -1,0 +1,2 @@
+C:\Binh\Project\SHtechcom\SpeedBoxing\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Binh\Project\SHtechcom\SpeedBoxing\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

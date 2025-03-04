@@ -30,7 +30,7 @@ public class Glove : Node
                             vfxBallExplosion.rotation = ball.transform.rotation;
                             SoundManager.Instance.PlaySound(Sound.RealBallExplosion, ball.transform.position);
                         }
-                        Debug.Log("dung r day");
+                        /*Debug.Log("dung r day");*/
                     }
                     else
                     {
@@ -40,7 +40,7 @@ public class Glove : Node
                         vfxBallExplosion.position = ball.transform.position;
                         vfxBallExplosion.rotation = ball.transform.rotation;
                         SoundManager.Instance.PlaySound(Sound.FakeBallExplosion, ball.transform.position);
-                        Debug.Log("sai mau r day");
+                        /*Debug.Log("sai mau r day");*/
                     }
                 }
                 else
@@ -51,7 +51,7 @@ public class Glove : Node
                     vfxBallExplosion.position = ball.transform.position;
                     vfxBallExplosion.rotation = ball.transform.rotation;
                     SoundManager.Instance.PlaySound(Sound.FakeBallExplosion, ball.transform.position);
-                    Debug.Log("bong gia r day");
+                    /*Debug.Log("bong gia r day");*/
                 }
                 ball.Deactivate();
             }

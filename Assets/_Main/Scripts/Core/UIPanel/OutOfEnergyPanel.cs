@@ -15,4 +15,19 @@ public class OutOfEnergyPanel : UIPanel
         UIManager.Instance.Hide(UIManager.Panel.OutOfEnergyPanel);
         DataManager.Instance.LoadScene("MainMenu");
     }
+
+    public void OnShopInMainMenuClicked()
+    {
+        SoundManager.Instance.PlaySound2D(Sound.Click);
+        MainMenuUIManager.Instance.Hide(MainMenuUIManager.MainMenuPanel.OutOfEnergyPanel);
+        MainMenuUIManager.Instance.Show(MainMenuUIManager.MainMenuPanel.ShopPanel);
+    }
+    
+    public void OnHomeInMainMenuClicked()
+    {
+        SoundManager.Instance.PlaySound2D(Sound.Click);
+        MainMenuUIManager.Instance.Hide(MainMenuUIManager.MainMenuPanel.OutOfEnergyPanel);
+        MainMenuUIManager.Instance.Show(MainMenuUIManager.MainMenuPanel.MainPanel);
+    }
+    
 }

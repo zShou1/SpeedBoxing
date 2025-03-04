@@ -1,0 +1,5 @@
+C:/Binh/Project/SHtechcom/SpeedBoxing/.utmp/RelWithDebInfo/254k1f5u/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Binh/Project/SHtechcom/SpeedBoxing/.utmp/RelWithDebInfo/254k1f5u/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Binh/Project/SHtechcom/SpeedBoxing/.utmp/RelWithDebInfo/254k1f5u/arm64-v8a/GameActivity/CMakeFiles/game.dir
+C:/Binh/Project/SHtechcom/SpeedBoxing/.utmp/RelWithDebInfo/254k1f5u/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+C:/Binh/Project/SHtechcom/SpeedBoxing/.utmp/RelWithDebInfo/254k1f5u/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir

@@ -135,7 +135,10 @@ public class SoundManager : Singleton<SoundManager>
     private IEnumerator BackToPool(GameObject soundGo,Sound sound,float time)
     {
         yield return new WaitForSeconds(time);
-        soundGo.SetActive(false);
+        if (soundGo)
+        {
+            soundGo.SetActive(false);
+        }
         activeSoundSources.Remove(sound, out AudioSource source);
     }
     /*public void PlaySoundOneShot(Sound sound, Vector3 position)

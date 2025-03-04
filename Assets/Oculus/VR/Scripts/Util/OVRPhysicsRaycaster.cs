@@ -48,7 +48,7 @@ namespace UnityEngine.EventSystems
 
         public override Camera eventCamera
         {
-            get { return GetComponent<OVRCameraRig>().leftEyeCamera; }
+            get { return FindAnyObjectByType<OVRCameraRig>().leftEyeCamera; }
         }
 
         /// <summary>

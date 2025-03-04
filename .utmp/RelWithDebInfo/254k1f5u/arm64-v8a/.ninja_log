@@ -1,0 +1,10 @@
+# ninja log v5
+15	1683	7628143079571407	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	6c74c76ca9e59589
+36	1762	7628143079510988	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	c58f5a0ea9ea7ade
+10	1779	7628143080215381	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	f51d68b3f1ebeae9
+25	1797	7628143079098397	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	4f4b28742a77696
+30	1811	7628143080892646	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	664f9dc2a91be9f9
+0	1889	7628143081830748	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	3dbd6f0315247047
+21	2098	7628143083918331	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	5e7a213f781b1818
+5	2335	7628143086367107	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	504e46bb8232e27e
+2335	2540	7628143088413069	C:/Binh/Project/SHtechcom/SpeedBoxing/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/254k1f5u/obj/arm64-v8a/libgame.so	e216624c72000aeb

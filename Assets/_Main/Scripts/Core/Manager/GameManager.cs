@@ -21,15 +21,23 @@ public class GameManager : Singleton<GameManager>
         {
             _score = value;
             OnScoreChanged?.Invoke(_score);
-            /*if (_score >= scoreTarget)
+            if (_score >= scoreTarget)
             {
                 //todo win
-                CurrentGameState = GameState.Ending;
+                if(CurrentGameState!=GameState.Playing)
+                {
+                    return;
+                }
+                Sequence(Delay(0.5).OnComplete(OnGameWin));
             }else if (_score < 0)
             {
                 //todo lose
-                CurrentGameState = GameState.Ending;
-            }*/
+                if(CurrentGameState!=GameState.Playing)
+                {
+                    return;
+                }
+                Sequence(Delay(0.5).OnComplete(OnGameLose));
+            }
         }
         get => _score;
     }
@@ -56,7 +64,7 @@ public class GameManager : Singleton<GameManager>
     private float _baseMinSpawnDelay;
     private float _baseMaxSpawnDelay;
 
-    private float _currentBallSpeed = 30f;
+    private float _currentBallSpeed = 10f;
     
     
     public Action OnGameStarting;
@@ -136,7 +144,6 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         CurrentGameState = GameState.Playing;
-        _currentLevel = 11;
         /*intervalSpawn = levelTime / _currentBallSpeed;*/
 
     }
@@ -178,6 +185,28 @@ public class GameManager : Singleton<GameManager>
             
         }
     }
+
+    #region WIN LOSE
+    
+    private void OnGameWin()
+    {
+        Debug.Log("Win");
+        SoundManager.Instance.PlaySound2D(Sound.Win);
+        Time.timeScale = 0;
+        CurrentGameState = GameState.Ending;
+        DataManager.Instance.Energy++;
+        UIManager.Instance.Show(UIManager.Panel.WinPanel);
+    }
+
+    private void OnGameLose()
+    {
+        Debug.Log("Lose");
+        SoundManager.Instance.PlaySound2D(Sound.Lose);
+        Time.timeScale = 0;
+        CurrentGameState = GameState.Ending;
+        UIManager.Instance.Show(UIManager.Panel.LosePanel);
+    }
+    #endregion
 
     #region Logic and Events
 
@@ -262,8 +291,7 @@ public class GameManager : Singleton<GameManager>
             }
             if (CurrentTime <= 0 && CurrentGameState == GameState.Playing)
             {
-                CurrentGameState = GameState.Ending;
-                /*Sequence(Delay(0.5).OnComplete(OnGameOverTime));*/
+                Sequence(Delay(0.5).OnComplete(OnGameLose));
             }
         }
 
