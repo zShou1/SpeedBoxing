@@ -7,5 +7,5 @@ public enum Sound
     Fight,
     Win,
     Lose,
-    Ready
+    Ready,
 }

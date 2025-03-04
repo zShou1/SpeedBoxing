@@ -1,16 +1,17 @@
 using UnityEngine;
 
-public class LosePanel : MonoBehaviour
+public class LosePanel : UIPanel
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void OnRetryButtonClicked()
     {
-        
+        SoundManager.Instance.PlaySound2D(Sound.Click);
+        DataManager.Instance.TryDecreaseEnergyAndLoadScene(DataManager.Instance.GetCurrentSceneName());
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void OnHomeButtonClicked()
     {
-        
+        SoundManager.Instance.PlaySound2D(Sound.Click);
+        UIManager.Instance.Hide(UIManager.Panel.LosePanel);
+        DataManager.Instance.LoadScene("MainMenu");
     }
 }

@@ -98,6 +98,7 @@ public class GameManager : Singleton<GameManager>
                 case GameState.Ending:
                     OnGameEnding?.Invoke();
                     /*Time.timeScale = 0;*/
+                    BGSoundManager.Instance.StopBackgroundSound();
                     StopSpawnBall();
                     /*Sequence(Delay(1.0).OnComplete(() =>
                     {
@@ -127,7 +128,7 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad();
+        /*DontDestroyOnLoad();*/
         _baseMinSpawnDelay = minSpawnDelay;
         _baseMaxSpawnDelay = maxSpawnDelay;
     }

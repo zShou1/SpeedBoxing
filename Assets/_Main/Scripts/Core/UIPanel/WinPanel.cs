@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class WinPanel : UIPanel
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void OnNextLevelButtonClicked()
     {
-        
+        SoundManager.Instance.PlaySound2D(Sound.Click);
+        GameManager.Instance.CurrentLevel++;
+        DataManager.Instance.LoadScene(DataManager.Instance.GetCurrentSceneName());
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void OnHomeButtonClicked()
     {
-        
+        SoundManager.Instance.PlaySound2D(Sound.Click);
+        UIManager.Instance.Hide(UIManager.Panel.WinPanel);
+        DataManager.Instance.LoadScene("MainMenu");
     }
 }

@@ -1,16 +1,18 @@
 using UnityEngine;
 
-public class OutOfEnergyPanel : MonoBehaviour
+public class OutOfEnergyPanel : UIPanel
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void OnShopButtonClicked()
     {
-        
+        SoundManager.Instance.PlaySound2D(Sound.Click);
+        UIManager.Instance.Hide(UIManager.Panel.OutOfEnergyPanel);
+        UIManager.Instance.Show(UIManager.Panel.ShopPanel);
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void OnHomeButtonClicked()
     {
-        
+        SoundManager.Instance.PlaySound2D(Sound.Click);
+        UIManager.Instance.Hide(UIManager.Panel.OutOfEnergyPanel);
+        DataManager.Instance.LoadScene("MainMenu");
     }
 }

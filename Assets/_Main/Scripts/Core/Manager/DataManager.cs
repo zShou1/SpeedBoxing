@@ -40,6 +40,16 @@ public class DataManager : Singleton<DataManager>
             OnOutOfEnergy?.Invoke();
         }
     }
+    
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+    
+    public string GetCurrentSceneName()
+    {
+        return SceneManager.GetActiveScene().name;
+    }
 
     protected override void OnDisable()
     {
