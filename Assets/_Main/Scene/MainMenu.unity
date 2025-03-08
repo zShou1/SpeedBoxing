@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47a9b1d59003b64c9af0e21fed53cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkuName: energy200
+  SkuName: energy50
   buyButton: {fileID: 16906538}
 --- !u!1 &18519480
 GameObject:
@@ -1135,6 +1135,10 @@ PrefabInstance:
     - target: {fileID: 4897607310870066, guid: a9d2de84afb308a4796cc671d3432b4d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114043904411177872, guid: a9d2de84afb308a4796cc671d3432b4d, type: 3}
+      propertyPath: joyPadClickButton
+      value: 2097152
       objectReference: {fileID: 0}
     - target: {fileID: 120006741097097638, guid: a9d2de84afb308a4796cc671d3432b4d, type: 3}
       propertyPath: m_Enabled
@@ -2280,7 +2284,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 199.99$
+  m_text: 49.99$
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b2db716700270fa4896731e06692bb96, type: 2}
   m_sharedMaterial: {fileID: 285249435578628639, guid: b2db716700270fa4896731e06692bb96, type: 2}
@@ -2543,7 +2547,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 9.99$
+  m_text: 0.99$
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b2db716700270fa4896731e06692bb96, type: 2}
   m_sharedMaterial: {fileID: 285249435578628639, guid: b2db716700270fa4896731e06692bb96, type: 2}
@@ -4439,6 +4443,50 @@ MonoBehaviour:
   keymapPanel: {fileID: 522923423}
   outOfEnergyPanel: {fileID: 399739950}
   shopPanel: {fileID: 1058282579}
+--- !u!1 &493792399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 493792400}
+  - component: {fileID: 493792401}
+  m_Layer: 0
+  m_Name: OculusIAP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &493792400
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493792399}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &493792401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493792399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac15e38f233f08f479be5a2c13af821d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &522923419
 GameObject:
   m_ObjectHideFlags: 0
@@ -5587,7 +5635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47a9b1d59003b64c9af0e21fed53cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkuName: energy20
+  SkuName: energy5
   buyButton: {fileID: 722650297}
 --- !u!1 &728354343
 GameObject:
@@ -8378,7 +8426,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: x20
+  m_text: x5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b2db716700270fa4896731e06692bb96, type: 2}
   m_sharedMaterial: {fileID: 285249435578628639, guid: b2db716700270fa4896731e06692bb96, type: 2}
@@ -10783,7 +10831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47a9b1d59003b64c9af0e21fed53cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkuName: energy50
+  SkuName: energy10
   buyButton: {fileID: 1423351346}
 --- !u!1 &1427603719
 GameObject:
@@ -11251,7 +11299,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 19.99$
+  m_text: 4.99$
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b2db716700270fa4896731e06692bb96, type: 2}
   m_sharedMaterial: {fileID: 285249435578628639, guid: b2db716700270fa4896731e06692bb96, type: 2}
@@ -11496,7 +11544,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: x200
+  m_text: x50
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b2db716700270fa4896731e06692bb96, type: 2}
   m_sharedMaterial: {fileID: 285249435578628639, guid: b2db716700270fa4896731e06692bb96, type: 2}
@@ -11852,7 +11900,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: x100
+  m_text: x20
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b2db716700270fa4896731e06692bb96, type: 2}
   m_sharedMaterial: {fileID: 285249435578628639, guid: b2db716700270fa4896731e06692bb96, type: 2}
@@ -12050,7 +12098,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 49.99$
+  m_text: 9.99$
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b2db716700270fa4896731e06692bb96, type: 2}
   m_sharedMaterial: {fileID: 285249435578628639, guid: b2db716700270fa4896731e06692bb96, type: 2}
@@ -12672,7 +12720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47a9b1d59003b64c9af0e21fed53cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkuName: energy100
+  SkuName: energy20
   buyButton: {fileID: 1654387555}
 --- !u!1 &1661477579
 GameObject:
@@ -12731,7 +12779,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: x10
+  m_text: x1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b2db716700270fa4896731e06692bb96, type: 2}
   m_sharedMaterial: {fileID: 285249435578628639, guid: b2db716700270fa4896731e06692bb96, type: 2}
@@ -13876,7 +13924,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: x50
+  m_text: x10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b2db716700270fa4896731e06692bb96, type: 2}
   m_sharedMaterial: {fileID: 285249435578628639, guid: b2db716700270fa4896731e06692bb96, type: 2}
@@ -15121,7 +15169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47a9b1d59003b64c9af0e21fed53cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkuName: energy10
+  SkuName: energy1
   buyButton: {fileID: 1950715539}
 --- !u!1 &1956887398
 GameObject:
@@ -15180,7 +15228,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 99.99$
+  m_text: 19.99$
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b2db716700270fa4896731e06692bb96, type: 2}
   m_sharedMaterial: {fileID: 285249435578628639, guid: b2db716700270fa4896731e06692bb96, type: 2}
@@ -16915,3 +16963,4 @@ SceneRoots:
   - {fileID: 830227080}
   - {fileID: 1366579287}
   - {fileID: 1525671973}
+  - {fileID: 493792400}
